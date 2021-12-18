@@ -1,0 +1,10 @@
+<UIListBox name="Cheat" columns="-1" autosize="false">
+   <UIRegion x="0" y="0" w="0" h="305" walign="max"/>
+   <UIState active="normal" visible="hidden"/>
+   <UIAspect>
+      <default image="ui/shared/white1X1.dds">
+         <BFColor r="64" g="64" b="64" a="255"/>
+      </default>
+   </UIAspect>
+   <children><UIListBox rows="-1" autosize="true" name="awardslist"></UIListBox></children>
+</UIListBox>
