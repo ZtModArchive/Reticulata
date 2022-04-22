@@ -18,37 +18,34 @@ awards_group={
 function Reticulata(args)
     try(
         function ()
+            displayZooMessageTextWithZoom("Reticulata fired", 1, 30)
             local animalSpeciesList = animalsInZoo()
-            local speciesJson = '[\n';
+            local speciesJson = '[';
             for i = 1, table.getn(animalSpeciesList), 1 do
-                speciesJson = speciesJson .. '        "' .. animalSpeciesList[i] .. '"'
+                speciesJson = speciesJson .. '"' .. animalSpeciesList[i] .. '"'
                 if i < table.getn(animalSpeciesList) then
-                    speciesJson = speciesJson .. ',\n'
-                else
-                    speciesJson = speciesJson .. '\n'
+                    speciesJson = speciesJson .. ','
                 end
             end
-            speciesJson = speciesJson .. '    ]';
+            speciesJson = speciesJson .. ']';
 
             print(
-                '{\n' ..
-                '    "timestamp": "' .. getRealTime() .. '",\n' ..
-                '    "zooFame": "' .. getZooFame() .. '",\n' ..
-                '    "zooName": "' .. getZooName() .. '",\n' ..
-                '    "currentMonth": "' .. getCurrentMonth() .. '",\n' ..
-                '    "currentTimeOfDay": "' .. getCurrentTimeOfDay() .. '",\n' ..
-                '    "currentSimTime": "' .. getCurrentSimTime() .. '",\n' ..
-                '    "cash": "' .. howMuchCash() .. '",\n' ..
-                '    "donationsAllAnimals": "' .. getDonationsAllAnimals() .. '",\n' ..
-                '    "educationDonations": "' .. getDonations("Education") .. '",\n' ..
-                '    "totalDonations": "' .. getTotalDonations() .. '",\n' ..
-                '    "speciesCount": "' .. howManyAnimalsInZoo() .. '",\n' ..
-                '    "species": ' .. speciesJson .. ',\n' ..
-                --'    "adultAdmissionPrice": "' .. getAdmissionPrice("adult_admission") .. '",\n' ..
-                --'    "childAdmissionPrice": "' .. getAdmissionPrice("child_admission") .. '"\n' ..
+                '{' ..
+                    '"type":"reticulata",' ..
+                    '"timestamp":"' .. getRealTime() .. '",' ..
+                    '"zooFame":"' .. getZooFame() .. '",' ..
+                    '"zooName":"' .. getZooName() .. '",' ..
+                    '"currentMonth":"' .. getCurrentMonth() .. '",' ..
+                    '"currentTimeOfDay":"' .. getCurrentTimeOfDay() .. '",' ..
+                    '"currentSimTime":"' .. getCurrentSimTime() .. '",' ..
+                    '"cash":"' .. howMuchCash() .. '",' ..
+                    '"donationsAllAnimals":"' .. getDonationsAllAnimals() .. '",' ..
+                    '"educationDonations":"' .. getDonations("Education") .. '",' ..
+                    '"totalDonations":"' .. getTotalDonations() .. '",' ..
+                    '"speciesCount":"' .. howManyAnimalsInZoo() .. '",' ..
+                    '"species":' .. speciesJson ..
                 '}'
             )
-
             io.flush()
         end
     )
