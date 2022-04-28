@@ -5,20 +5,9 @@ include "scenario/scripts/misc.lua"
 include "scenario/scripts/awards.lua"
 include "scenario/scripts/economy.lua"
 
-awards_group={
-    {
-        flag_name="Reticulata",
-        icon_name="Reticulata",
-        locid="Reticulata",
-        args={}
-    },
-    test_func=Reticulata, group_xml="awards/Reticulata.xml"
-}
-
-function Reticulata(args)
+function Reticulata(sender, customData)
     try(
         function ()
-            displayZooMessageTextWithZoom("Reticulata fired", 1, 30)
             local animalSpeciesList = animalsInZoo()
             local speciesJson = '[';
             for i = 1, table.getn(animalSpeciesList), 1 do
@@ -32,6 +21,7 @@ function Reticulata(args)
             print(
                 '{' ..
                     '"type":"reticulata",' ..
+                    '"sender":"' .. sender .. '",' ..
                     '"timestamp":"' .. getRealTime() .. '",' ..
                     '"zooFame":"' .. getZooFame() .. '",' ..
                     '"zooName":"' .. getZooName() .. '",' ..
@@ -44,6 +34,7 @@ function Reticulata(args)
                     '"totalDonations":"' .. getTotalDonations() .. '",' ..
                     '"speciesCount":"' .. howManyAnimalsInZoo() .. '",' ..
                     '"species":' .. speciesJson ..
+                    '"customData":' .. customData ..
                 '}'
             )
             io.flush()
