@@ -1,0 +1,7 @@
+include("scenario/scripts/awards.lua")
+include("scripts/Reticulata/Reticulata.lua")
+monitorfreeform = function(arg1)
+   checkawards(arg1)
+   Reticulata("Reticulata", "Test")
+   return 0
+end

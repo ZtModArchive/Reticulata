@@ -4,6 +4,7 @@ include "scenario/scripts/ui.lua"
 include "scenario/scripts/misc.lua"
 include "scenario/scripts/awards.lua"
 include "scenario/scripts/economy.lua"
+include "scripts/ZooFame.lua"
 
 function Reticulata(sender, customData)
     try(
@@ -18,11 +19,21 @@ function Reticulata(sender, customData)
             end
             speciesJson = speciesJson .. ']';
 
+            local guests = findType("Guest")
+            local avgEducation = getAverageAttribute(guests, "f_Education")
+            local avgHappiness = getAverageAttribute(guests, "happiness")
+
+            local admission = 0
+            if not getAdmissionPrice() == nil then
+                admission = getAdmissionPrice()
+            end
+
             print(
                 '{' ..
                     '"type":"reticulata",' ..
                     '"sender":"' .. sender .. '",' ..
                     '"timestamp":"' .. getRealTime() .. '",' ..
+                    '"admission":"' .. admission .. '",' ..
                     '"zooFame":"' .. getZooFame() .. '",' ..
                     '"zooName":"' .. getZooName() .. '",' ..
                     '"currentMonth":"' .. getCurrentMonth() .. '",' ..
@@ -33,8 +44,11 @@ function Reticulata(sender, customData)
                     '"educationDonations":"' .. getDonations("Education") .. '",' ..
                     '"totalDonations":"' .. getTotalDonations() .. '",' ..
                     '"speciesCount":"' .. howManyAnimalsInZoo() .. '",' ..
-                    '"species":' .. speciesJson ..
-                    '"customData":' .. customData ..
+                    '"guestCount":"' .. getNumGuests(-1) .. '",' ..
+                    '"averageEducation":"' .. avgEducation .. '",' ..
+                    '"averageHappiness":"' .. avgHappiness .. '",' ..
+                    '"species":' .. speciesJson .. ',' ..
+                    '"customData":"' .. customData .. '"' ..
                 '}'
             )
             io.flush()
